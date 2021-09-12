@@ -1,0 +1,76 @@
+HTML e conceitos
+
+O elemento HTML <input> é usado para criar controles interativos para formulários baseados na web para receber dados do usuário. A semântica de um <input> varia consideravelmente dependendo do valor de seu atributo type.
+
+Input 
+Propertys
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+ 
+hidden - A control that is not displayed but whose value is submitted to the server. There is an example in the next column, but it's hidden!
+
+Questões de HTML
+
+Quiz HTML, W3SCHOOLS
+
+1 - O que é HTML, escreva seu nome completo 
+R: Hyper Text Markup Language. 
+OP: Hyper Markup Language
+OP: Text Markup Language 
+OP: Hyper Text Language Markup
+
+3 - O que é semântica
+R:
+
+4 - Em qual versão está o HTML
+R:
+
+5 - Como iniciar uma página HTML
+R: <!DOCTYPE html>
+
+6 - Como iniciar a tag CSS e JS
+R: <style></style> e <script type="text/javascript" src="caminhoArquivo"></script>
+
+7 - Escolha o elemento HTML correto para definir o texto enfatizado
+R: <em>
+
+8 - Qual a anatomia de uma tag HTML
+OP: Tag de abertura( (Atributo (<p class="nice">)) Atributo(Hello World!) Fechamento de tag(</p>)
+OP: Tag de abertura( (Atributo e valor(<p class="nice">)) Contéudo(Hello World!)>
+R: Tag de abertura( (Atributo e valor(<p class="nice">)) Contéudo(Hello World!) Fechamento de tag(</p>)
+OP: Tag de abertura( (Atributo e valor(<p class="nice">)) Atributo(Hello World!)(</p>)
+Tim burnslean
+W3C
+
+9 - Iniciar HTML 
+R: html:5
+
+10 - Descreva o que é HTML
+R:
+
+11 - Como comentar em HTML
+OP: <!-- ->
+OP: <!-- >
+OP: <!-- -->
+OP: <-- -->
+R: <!-- -->
+
+12 - Qual aspas usar ao adicionar um atributo, qual o recomendado
+OP: Aspas simples
+OP: Aspas duplas
+OP: Aspas simples e duplas
+OP: Sem aspas
+R: Aspas simples
+
+13 - Como dar ênfase no HTML
+OP: Tag <em></em>
+OP: Tag <strong></strong>
+OP: Tag <b></b>
+OP: Tag <link href=""><link>
+R: <em></em>
+
+14 - Como criar um link em html
+OP: <a href=""></a>
+OP: <a link=""></a>
+OP: <a href="">
+OP: <a href="" link></a>

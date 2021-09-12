@@ -1,0 +1,17 @@
+{
+    "configurations": [
+    {
+        "name": "Launch Chrome",
+        "request": "launch",
+        "type": "pwa-chrome",
+        "url": "http://localhost:5500",
+        "webRoot": "${workspaceFolder}"
+    },
+        {
+            "name": "Launch Microsoft Edge and open the Edge DevTools",
+            "request": "launch",
+            "type": "vscode-edge-devtools.debug",
+            "url": "file:///C:/Users/Lucas/Documents/Github/Projeto_Formul%C3%A1rio/formularioQuestoes.html" 
+        }
+    ]
+}
