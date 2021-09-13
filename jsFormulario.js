@@ -1,43 +1,80 @@
-var element_body = document.body;
+const BtnAdd = document.querySelector(".btn-add");
+const DivContainer = document.getElementById("div-container");
 
-function createElementsHtml(){
-    console.log("entrou no function");
-    var elementTitle = document.getElementById("elementTitle").value;
-    var elementTypeAnswer = document.querySelector('input[name="escolha"]').value;
 
-    elementsQuestion(elementTitle, elementTypeAnswer);
+/* Ver melhor maneira de criar isso, criar botão que irá chamar função quando der enter */
+let inputOption = document.getElementById("teste");
 
-    return;
+BtnAdd.addEventListener("click", AddNew);
+inputOption.addEventListener('keyup', answerRadio(inputOption.value));
+
+function AddNew() {
+
+    let titleQuestion = document.getElementById("titleQuestion");
+    let elementTypeAnswer = document.querySelector('input[name="choice"]:checked').value;
+    
+    /* Título nova pergunta  */
+    let newDiv = document.createElement("h1");
+    let content = document.createTextNode(titleQuestion.value);
+    newDiv.appendChild(content);
+    DivContainer.appendChild(newDiv);
+
+    /* Criação do elemento de resposta */
+    if(elementTypeAnswer == "radio"){ //Validando valor
+
+
+        // Criar um input para dar a opção
+        let inputOption = document.createElement("input");
+        inputOption.setAttribute('type', 'text');
+        inputOption.setAttribute('value', ' ');
+        inputOption.setAttribute('placeholder', 'Digite aqui a pergunta');
+        inputOption.setAttribute('id', 'teste');
+        DivContainer.appendChild(inputOption);
+        
+
+        // Chamando função para criação do input radio
+        /*answerRadio();*/
+
+    } else {
+
+        let newAnswer = document.createElement("textarea");
+        newAnswer.setAttribute('class', 'textarea');
+        newAnswer.setAttribute('name', 'textareaName');
+        newAnswer.setAttribute('row', '5');
+        newAnswer.setAttribute('cols', '5');
+        DivContainer.appendChild(newAnswer);
+
+    } 
 }
 
-function elementsQuestion(elementTitle, elementTypeAnswer){
-    
-    let documentFather = document.getElementById("newforms");
 
-    //Título
-    var element = document.createElement("h1");
-    var content = document.createTextNode(elementTitle);
+/* Função que cria o input radio  */
+function answerRadio(inputOption){
 
-    element.appendChild(content);
-    documentFather.appendChild(element); 
-    
-    //Respostas
-    if(elementTypeAnswer == "textarea" ){
+    const keyPressesEnter = inputOption.key == "Enter";
+    if(keyPressesEnter == 'Enter'){
 
-        var element = document.createElement("textarea");
-        element.name = "campoArea";
+        console.log("Entrou na funcao answerRadio");
 
-    }   else {
-
-        var element = document.createElement("input");
-        element.type = elementTypeAnswer.value;
-        element.name = "questionOption1";
-        var content = document.createTextNode("Opcao1")
+        // Cria a option com base no valor informdo
+        let newAnswer = document.createElement("input");
+        newAnswer.setAttribute('type', 'radio');
+        newAnswer.setAttribute('name', 'option');
+        newAnswer.setAttribute('value', inputOption.value);
+        DivContainer.appendChild(newAnswer);
     }
 
-    
-    element.appendChild(content);
-    documentFather.appendChild(element); 
-    
-    
 }
+
+/*
+ 
+/* Cria um botão para adicionar outra opção 
+const btnAnswerAdd =  document.createElement("input");
+btnAnswerAdd.setAttribute('type', 'button');
+btnAnswerAdd.setAttribute('value', 'addNewOption')
+btnAnswerAdd.addEventListener("click", answerRadio());
+DivContainer.appendChild(btnAnswerAdd);
+/* Função que irá criar novos inputs radios 
+btnAnswerAdd.addEventListener("click", answerRadio());
+
+*/

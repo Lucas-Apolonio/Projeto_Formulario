@@ -8,161 +8,40 @@
     </head>
 
     <body>
-    <div>
-        <h1>
-            Formulário
-        </h1>
 
-        <form action="" id="formElements">
+        <header>
 
-            <fieldset name="formElements" id="formElements"> <!-- Validar se está tudo certo -->
+          <h1>Make Divs with JS </h1>
+          <button class="btn-add">Add New</button>
+        
+        </header>
+        
+        <form action="" id="form">
 
-                <label for="elementTitlename">Digita sua pergunta</label>
-                <textarea id="elementTitle" name="elementTitlename" rows="3" cols="40" wrap="soft" name="titleQuestion"></textarea>
+            <fieldset>
+   
+                <label for="title">Pergunta</label>
+                <textarea id="titleQuestion" name="title" row="2" cols="20"></textarea>
 
             </fieldset>
 
             <fieldset>
-            
-                <input type="radio" id="elementTypeAnswer"  name="escolha" value="textarea">
-                
-                <label for="Teste">Escolha</label>
 
-                <input type="radio" id="elementTypeAnswer"  name="escolha2" value="radio">
-                
-                <label for="Teste">Texto</label>
+                <label for="choice">Campo de texto:</label>
+                <input type="radio" name="choice" value="textarea">
+
+                <label for="choice">Escolhas:</label>
+                <input type="radio" name="choice" value="radio">
 
             </fieldset>
-            
-            <button id="button" onclick="createElementsHtml()">Botão</button>
 
-            <div id="newforms">
-
+            <h2>New Containers</h2>
+            <div id="div-container">
             </div>
+
         </form>
-    
-    </div>
-    <!-- 
-        <div>
-                <h1 id="titulo_pagina">Questões de HTML</h1>
-                <p>
-                    Questões sobre HTML e mais.. Para aprender e lembrar da tecnologia.
-                </p>
-        </div>
-
-        <div>
-
-            <form action="."> <-- Action envia para alguma página o formulário --!
-
-                    <fieldset class="grupoDeQuestoes" style="border: none;">
-
-                        <div>
-
-                            <label for="questao1">Questao 1 <br>
-                                <input  type="radio" name="questao1" value="questao1">Resposta  <br>
-                                <input  type="radio" name="questao1" value="questao1">Resposta  <br>
-                                <input  type="radio" name="questao1" value="questao1">Resposta  <br>
-                            </label>
-
-                        </div>
-
-                        <div>
-
-                            <label for="questao2">Questao2  <br>
-                                <input type="radio" name="questao2" value="questao2">Resposta   <br>
-                                <input type="radio" name="questao2" value="questao2">Resposta   <br>
-                                <input type="radio" name="questao2" value="questao2">Resposta   <br>
-                            </label>
-                        
-                        </div>
-
-                        <div>
-
-                            <label for="questao3">Questao3  <br>
-                                <input type="radio" name="questao3" value="questao3">Resposta   <br>
-                                <input type="radio" name="questao3" value="questao3">Resposta   <br>
-                                <input type="radio" name="questao3" value="questao3">Resposta   <br>
-                            </label>
-
-                        </div>
-
-                        <div>
-
-                            <label for="questao4">Questao4  <br>
-                                <input type="radio" name="questao4" value="questao4">Resposta   <br>
-                                <input type="radio" name="questao4" value="questao4">Resposta   <br>
-                                <input type="radio" name="questao4" value="questao4">Resposta   <br>
-                            </label>
-                        </div>
-
-                        <div>
-
-                            <label for="questao5">Questao5  <br>
-                                <input type="radio" name="questao5" value="questao5">Resposta   <br>
-                                <input type="radio" name="questao5" value="questao5">Resposta   <br>
-                                <input type="radio" name="questao5" value="questao5">Resposta   <br>
-                            </label>
-
-                        </div>
-
-                        <div>
-
-                            <label for="questao6">Questao6  <br>
-                                <input type="radio" name="questao6" value="questao6">Resposta   <br>
-                                <input type="radio" name="questao6" value="questao6">Resposta   <br>
-                                <input type="radio" name="questao6" value="questao6">Resposta   <br>
-                            </label>
-                        
-                        </div>
-
-                        <div>
-
-                            <label for="questao7">Questao7  <br>
-                                <input type="radio" name="questao7" value="questao7">Resposta   <br>
-                                <input type="radio" name="questao7" value="questao7">Resposta   <br>
-                                <input type="radio" name="questao7" value="questao7">Resposta   <br>
-                            </label>
-                        
-                        </div>
-
-                        <div>
-
-                            <label for="questao8">Questao8  <br>
-                                <input type="radio" name="questao8" value="questao8">Resposta   <br>
-                                <input type="radio" name="questao8" value="questao8">Resposta   <br>
-                                <input type="radio" name="questao8" value="questao8">Resposta   <br>
-                            </label>
-                    
-                        </div>
-                        
-                        <div>
-
-                            <label for="questao9">Questao9  <br>
-                                    <input type="radio" name="questao9" value="questao9">Resposta   <br>
-                                    <input type="radio" name="questao9" value="questao9">Resposta   <br>
-                                    <input type="radio" name="questao9" value="questao9">Resposta   <br>
-                            </label>
-                        
-                        </div>
-                        
-                        <div>
-                        
-                            <label for="questao10">Questao10    <br>
-                                <input type="radio" name="questao10" value="questao10">Resposta <br>
-                                <input type="radio" name="questao10" value="questao10">Resposta <br>
-                                <input type="radio" name="questao10" value="questao10">Resposta <br>
-                            </label>
-
-                        </div>
-
-                    </fieldset>
-
-                    <input type="submit">
-            
-            </form>
         
-        </div>
-    -->
-    </body>
+      </body>
+
     <script type="text/javascript" src="jsFormulario.js"></script>
 </html>
