@@ -1,0 +1,26 @@
+{
+  "name": "ProjetoFormulario",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lucas-Apolonio/Projeto_Formulario.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lucas-Apolonio/Projeto_Formulario/issues"
+  },
+  "homepage": "https://github.com/Lucas-Apolonio/Projeto_Formulario#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
