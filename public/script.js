@@ -1,15 +1,59 @@
+//Busca de elementos HTML
 const divContainer = document.getElementById("div-container");
 const inputContainer = document.getElementById("inputContainer");
 
-var testeVariavel;
-
+//Eventos de elementos HTML
 inputContainer.addEventListener('keyup', clickInputTitle); 
 
-//Array auxiliar para tratar atributos de input
-let arrayAux = [];
+//Variaveis
 
+let arrayAux = []; //Array auxiliar para tratar atributos de input
 let arrayInputsOption = []; //Array de Objetos de Inputs. EX: input, type/text ou type/radio | Pensar melhor se é melhor separar ou deixar juntos.
 let arrayInputsTitle = []; //Array de Objetos de Tags Titles. EX: h1, textarea
+
+//Classes
+
+//Exemplo de uma classe
+class MyClass {
+    //método construtor
+    constructor(parametros) { //Sempre terá um constructor
+        this.parametros = parametros;
+    } 
+
+    method01() {}
+    method02() {}
+    //Outros meios de métodos:
+    
+    //Método get
+    get methodGet (){
+        return this.parametros;
+    }
+    //Método set
+    set methodSet (){
+        this.parametros = parametros;
+    }
+    //Método estático.
+    //Estudar depois sobre... https://www.youtube.com/watch?v=zkzPhD8Lnno
+}
+
+class ElementHtml {
+
+    constructor(tagHtml, attributesHtml){
+        this.tagHtml = tagHtml;
+        this.attributesHtml = attributesHtml;
+    }
+    //O que devo fazer?
+    get elementHtml (){
+        return this.tagHtml, this.attributesHtml;
+    }
+}
+
+
+
+
+
+
+
 
 //Função responsável por excluir um elemento
 function deleteElement(elementHtml) {
