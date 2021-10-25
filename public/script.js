@@ -22,7 +22,7 @@ class ElementHtml {
 
         this.createTextNodeNoText;
         this.createTextNode;
-        this.addValueElement; //Variável responsável por receber os valores do appendChild
+        this.addValueElement; //Variável responsável por receber os valores do appendChild // TALVEZ NÃO EXISTA MAIS
 
     }
 
@@ -32,7 +32,7 @@ class ElementHtml {
 
     setElementHtml(tagHtml, attributesHtml){
         this.tagHtml = tagHtml;
-        this.attributesHtml = attributesHtml;
+        this.attributesHtml = attributesHtml;//Arrumar isso depois, não daria certo
     }
 
     //PRONTO? NÃO, ATRIBUIR O ELEMENTO CRIADO A UMA ARRAY?
@@ -42,18 +42,20 @@ class ElementHtml {
         
         //Crio o elemento com a tag e passo os valores do atributo
         this.element = document.createElement(this.tagHtml);
-        for(var i = 0; i < this.attributesHtml.length; i++){ 
+        this.validationAttributes();
+        
+        for(var i = 0; i < this.attributesHtml.length; i++){  //FOR PARECE INÚTIL, O SPLIT ESTÁ FAZENDO O PAPEL, PARECE, VALIDAR COM CALMA.
                 
             //O type sempre será par e o value sempre impar. 
             if(i % 2 === 0){ //Sempre que for par, ele atribuirá os elementos, para a atribuição ocorrer corretamente
 
                 //Atribuição do attribute sempre que for par.
-                element.setAttribute( this.attributesHtml[i], this.attributesHtml[i+1] ); //Função padrão do JS, seta os atributos de uma tag 
+                this.element.setAttribute( this.attributesHtml[i], this.attributesHtml[i+1] ); //Função padrão do JS, seta os atributos de uma tag 
 
             }
         }
-        divContainer.appendChild(element); //Demonstro elemento na divContainer
-        arrayElements = this.element; //Atribuição dos elementos a array.
+        divContainer.appendChild(this.element); //Demonstro elemento na divContainer
+        arrayElements.push(this.element); //Atribuição dos elementos a array.
 
     }
 
@@ -63,36 +65,38 @@ class ElementHtml {
 
     }
 
-    //PRONTO? 
+    //Validar os elementos e sua tag
     validationAttributes(){
         
         //Em algum momento, ter mensagem de erro sobre o elemento nesta função
         if(this.tagHtml == "textarea"){
             
             this.createTextNodeNoText = document.createTextNode("");
-            addValueElement.appendChild(createTextNodeNoText); //Adiciona o valor vazio ao objeto elemento textarea.
-                
+            this.element.appendChild(createTextNodeNoText); //Adiciona o valor vazio ao objeto elemento textarea. ERRO: Preciso criar antes o elemento     
             
         } else {
             
-            this.createTextNode = document.createTextNode(inputContainer.value); 
-            addValueElement.appendChild(createTextNode); //Adiciona ao objeto elementHtml o valor do H1.
-                
+            let createTextNode = document.createTextNode(inputContainer.value); 
+            this.element.appendChild(createTextNode); //Adiciona ao objeto elementHtml o valor do H1. ERRO: Preciso criar antes o elemento
                     
         }
 
         //Atribuindo um evento e sua função ao attributes, caso seja uma botão
-        if(this.attributesHtml.find("button") == "button"){
+        if(this.attributesHtml.includes('button')){//ERRO DE LÓGICA
 
-            if(this.attributesHtml.find("+") == "+"){
+            if(this.attributesHtml.includes('ADD')){//ERRO DE LÓGICA
 
                 let stringAttribute = "onclick-createElement()";
-                this.attributesHtml = stringAttribute.split('-')
+                let aux = stringAttribute.split('-');
+                this.attributesHtml.push(aux[0]);
+                this.attributesHtml.push(aux[1]);
 
             } else {
 
                 let stringAttribute = "onclick-deleteElement()";
-                this.attributesHtml = stringAttribute.split('-')
+                let aux = stringAttribute.split('-');
+                this.attributesHtml.push(aux[0]);
+                this.attributesHtml.push(aux[1]);
 
             }    
         }
@@ -111,7 +115,6 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
         let tag = "h1";
         let attributes = "class-classTitle"; //Ver depois como automatizar?    
         let titleH1 = new ElementHtml(tag, attributes); //Ver depois se posso automatizar isso.
-        titleH1.validationAttributes(); //Validação do atributo e tag título
         titleH1.createElementHtml();
 
         //Crição do input de resposta e validação da opção escolhida pelo o usuário
@@ -134,23 +137,20 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
             } else {
                 
                 let tagInput = new ElementHtml(tag, attributes);
-                tagInput.createElement();
+                tagInput.createElementHtml();
 
             }
-
         }
-        let tagInput = new ElementHtml(tag, attributes); //Cria os elementos se não for do tipo radio. Ex: text, textarea 
-        tagInput.createElement();
 
         //Criação do input button de remove.
         tag = "input"
         attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()";
-        let tagInput = new Element(tag, attributes);
-        tagInput.createElement();        
+        let tagInput = new ElementHtml(tag, attributes);
+        tagInput.createElementHtml();        
     }   
 }
 
-//Comentar melhor a função e dentro dela
+//Função responsável por criar mais de um elemento das opções de radio
 function optionChoiceSetAttributes(tag, attributes){
     
     this.attributes = attributes;
@@ -163,27 +163,49 @@ function optionChoiceSetAttributes(tag, attributes){
                         
             this.attributes = "type-radio-class-classInput";
             let tagInput = new ElementHtml(this.tag, this.attributes);
-            tagInput.createElement();
+            tagInput.createElementHtml();
                         
         } else if (i == 1){
 
             this.attributes = "type-text-class-classInput";
             let tagInput = new ElementHtml(this.tag, this.attributes);
-            tagInput.createElement();
+            tagInput.createElementHtml();
                         
         } else if (i == 2) {
 
             this.attributes = "type-button-value-ADD-class-classInput-onclick-createNewAnswer()"; //Criar função createNewAnswer()
             let tagInput = new ElementHtml(this.tag, this.attributes);
-            tagInput.createElement();
-            clickInputOption("input", "type-button-value-+"); //Antigo: clickInputOption("input", "type-button-value-+-id-buttonAddRadio"+[i]);
+            tagInput.createElementHtml();
 
         } else {
 
             this.attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()"; //Criar função deleteElement()
             let tagInput = new ElementHtml(this.tag, this.attributes);
-            tagInput.createElement();
+            tagInput.createElementHtml();
                     
         }            
     }
+}
+
+function createNewAnswer(){
+
+    let tag = "input"
+    let attributes = "type-" + optionChoice + "-class-classInput";
+    optionChoiceSetAttributes(tag, attributes);
+
+}
+
+//Função responsável por remover os elementos quando clicado no botão
+function deleteElement() {
+    alert("oi");
+    if(divContainer.parentNode){
+        divContainer.parentNode.removeChild()//Como irei validar qual nó será removido? Validar ainda
+    }
+}
+
+function updadeOptions ( ){
+    
+    let option = optionList.options[optionList.selectedIndex].value;
+    return option;
+
 }
