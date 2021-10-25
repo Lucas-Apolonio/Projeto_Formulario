@@ -1,238 +1,189 @@
 //Busca de elementos HTML
-const divContainer = document.getElementById("div-container");
-const inputContainer = document.getElementById("inputContainer");
+const divContainer = document.getElementById("div-container");  // Container onde vai ser criado os elementos
+const inputContainer = document.getElementById("inputContainer"); // É o campo de texto a qual pego o título da pergunta
+const optionList = document.getElementById("optionList"); // Opções de respostas, campo option.
 
 //Eventos de elementos HTML
 inputContainer.addEventListener('keyup', clickInputTitle); 
 
 //Variaveis
-
-let arrayAux = []; //Array auxiliar para tratar atributos de input
-let arrayInputsOption = []; //Array de Objetos de Inputs. EX: input, type/text ou type/radio | Pensar melhor se é melhor separar ou deixar juntos.
-let arrayInputsTitle = []; //Array de Objetos de Tags Titles. EX: h1, textarea
+let arrayElements = []; //Array responsável por guardar os elementos.
 
 //Classes
-
-//Exemplo de uma classe
-class MyClass {
-    //método construtor
-    constructor(parametros) { //Sempre terá um constructor
-        this.parametros = parametros;
-    } 
-
-    method01() {}
-    method02() {}
-    //Outros meios de métodos:
-    
-    //Método get
-    get methodGet (){
-        return this.parametros;
-    }
-    //Método set
-    set methodSet (){
-        this.parametros = parametros;
-    }
-    //Método estático.
-    //Estudar depois sobre... https://www.youtube.com/watch?v=zkzPhD8Lnno
-}
-
 class ElementHtml {
 
     constructor(tagHtml, attributesHtml){
+
+        this.tagHtml = tagHtml;
+        this.attributesHtml = [];
+        this.attributesHtml = attributesHtml.split('-') //Separa a string e joga dentro de uma array os atributos do elemento.
+
+        this.element;//É o elemento html
+
+        this.createTextNodeNoText;
+        this.createTextNode;
+        this.addValueElement; //Variável responsável por receber os valores do appendChild
+
+    }
+
+    getElementHtml (){
+        return this.tagHtml, this.attributesHtml, this.addValueElement;
+    }
+
+    setElementHtml(tagHtml, attributesHtml){
         this.tagHtml = tagHtml;
         this.attributesHtml = attributesHtml;
     }
-    //O que devo fazer?
-    get elementHtml (){
-        return this.tagHtml, this.attributesHtml;
-    }
-}
 
-
-
-
-
-
-
-
-//Função responsável por excluir um elemento
-function deleteElement(elementHtml) {
-    //Não funciona no IE 11
-    alert("oi");
-    
-}
-
-//Função de botão add mais opções Radio
-function createNewOption(){
-
-    createElementsRadio("radio");
-}
-
-//Função que irá chamar a criação do três itens.
-function callElementsRadio() {
-    createElementsRadio("radio");
-}
-
-//Está criando os três inputs, preciso validar para ele chamar novamente a função.
-
-//Função do Option, criação dos três elementos: radio, text, button
-function createElementsRadio(radio) {
-    this.radio = radio;
-
-    for(let i = 0; i < 3; i++){
-        if(i == 0){
-            clickInputOption("input", "type-radio");
-        } else if ( i == 1){
-            clickInputOption("input", "type-text");
-        } else {
-            clickInputOption("input", "type-button-value-+"); //Antigo: clickInputOption("input", "type-button-value-+-id-buttonAddRadio"+[i]);
-        }
-    }
-}
-
-
-//Objeto Elemento  
-function ElementTagObject(tagHtml, attributesHtml){
-
-    this.tagHtml = tagHtml;
-    this.attributesHtml = attributesHtml;
-    
-    if(typeof(this.attributesHtml) === "undefined"){
+    //PRONTO? NÃO, ATRIBUIR O ELEMENTO CRIADO A UMA ARRAY?
+    createElementHtml(){
         
-        console.log("É undenifed");
-        console.log("É um elemento título: H1");
-
-    } else {
-        arrayAux = this.attributesHtml.split('-'); //Separa a string e joga dentro de uma array os atributos.
-    }
-    
-    //Funcao responsável por criar um elemento
-    this.createElement = function () {
-
-        let elementHtml = document.createElement(this.tagHtml);
+        //FUNÇÃO PRECISA CRIAR APENAS O ELEMENTO E APRESENTAR-LO NA TELA, INDEPENDENTE DO ELEMENTO.
         
-        //Valida se o elemento tem um type
-        if(typeof(this.attributesHtml) === "undefined"){
-            
-            //valida se o elemento é um textarea
-            if(this.tagHtml != "textarea"){
-                let createTextNode = document.createTextNode(inputContainer.value)
-                elementHtml.appendChild(createTextNode);
-            }
-
-            let createTextNodeNoText = document.createTextNode("");
-            elementHtml.appendChild(createTextNodeNoText);
-            
-    
-        } else {
-
-            console.log(arrayAux);
-            for(var i = 0; i < arrayAux.length; i++){
-
-                //Faz a separação para que não haja erros no atributos do input
-                //Tem que receber os atributos e valores, ex: type,text
-                if(i % 2 === 0){    //Por que?  
-
-                    elementHtml.setAttribute( arrayAux[i], arrayAux[i+1] );
-
-                    //Atribuindo evento ao elemento, caso seja um botão. Talvez esse IF seja melhor na linha 41
-                    if(arrayAux[1] == "button"){
-                        if(arrayAux[3] == "+"){
-                            elementHtml.setAttribute("onclick", "createNewOption()");
-                        } else {
-                            elementHtml.setAttribute("onclick", "deleteElement()");
-                        }    
-                    }
-
-                    console.log(arrayAux[i], arrayAux[i+1]);
+        //Crio o elemento com a tag e passo os valores do atributo
+        this.element = document.createElement(this.tagHtml);
+        for(var i = 0; i < this.attributesHtml.length; i++){ 
                 
-                } else {
-            
-                    console.log(arrayAux[i-1], arrayAux[i]);
-            
-                }
-            
+            //O type sempre será par e o value sempre impar. 
+            if(i % 2 === 0){ //Sempre que for par, ele atribuirá os elementos, para a atribuição ocorrer corretamente
+
+                //Atribuição do attribute sempre que for par.
+                element.setAttribute( this.attributesHtml[i], this.attributesHtml[i+1] ); //Função padrão do JS, seta os atributos de uma tag 
+
             }
-
         }
+        divContainer.appendChild(element); //Demonstro elemento na divContainer
+        arrayElements = this.element; //Atribuição dos elementos a array.
 
-        console.log(elementHtml);
-
-        
-
-        divContainer.appendChild(elementHtml);
-        
     }
 
+    //Excluir o elemento.
+    deleteElementHtml(){
+        //Implementar
+
+    }
+
+    //PRONTO? 
+    validationAttributes(){
+        
+        //Em algum momento, ter mensagem de erro sobre o elemento nesta função
+        if(this.tagHtml == "textarea"){
+            
+            this.createTextNodeNoText = document.createTextNode("");
+            addValueElement.appendChild(createTextNodeNoText); //Adiciona o valor vazio ao objeto elemento textarea.
+                
+            
+        } else {
+            
+            this.createTextNode = document.createTextNode(inputContainer.value); 
+            addValueElement.appendChild(createTextNode); //Adiciona ao objeto elementHtml o valor do H1.
+                
+                    
+        }
+
+        //Atribuindo um evento e sua função ao attributes, caso seja uma botão
+        if(this.attributesHtml.find("button") == "button"){
+
+            if(this.attributesHtml.find("+") == "+"){
+
+                let stringAttribute = "onclick-createElement()";
+                this.attributesHtml = stringAttribute.split('-')
+
+            } else {
+
+                let stringAttribute = "onclick-deleteElement()";
+                this.attributesHtml = stringAttribute.split('-')
+
+            }    
+        }
+    }
 }
 
-//Função que irá criar o objeto elemento com um tipo e adicionar-lo a uma Array de Inputs.
-function clickInputOption(tag, type){
-
-    let tagObject = new ElementTagObject(tag, type);
-    
-    tagObject.createElement();
-
-    arrayInputsOption.push(tagObject);
-}
-
-
-//Primeira função a ser chamada ao evento
-function clickInputTitle(event){
+//MAIN
+function clickInputTitle(event){ //Função responsável por pegar o evento do elemento e dar início as rotinas.
 
     //Variável que recebe o valor e validar se o evento foi igual ao valor.
     const keyPressIsEnter = event.key == "Enter";
 
     if(keyPressIsEnter){
         
+        //Criação do título
+        let tag = "h1";
+        let attributes = "class-classTitle"; //Ver depois como automatizar?    
+        let titleH1 = new ElementHtml(tag, attributes); //Ver depois se posso automatizar isso.
+        titleH1.validationAttributes(); //Validação do atributo e tag título
+        titleH1.createElementHtml();
 
-        //TESTE, CRIAÇÃO DE BOTÕES
-        let botoes;
-
-        //Cria uma elemento H1
-        let tagObject = new ElementTagObject("h1");
-        tagObject.createElement();
-      
-        arrayInputsTitle.push(tagObject); 
-
-        //teste
-        clickInputOption("input", "type-button-value-Remove"); //Funcionou, criou um botão REMOVE
-        
-        let option = updadeOptions();
-
-        if(option == "textarea"){ //Textarea é uma tag sozinha, sem necessidade de um type.
+        //Crição do input de resposta e validação da opção escolhida pelo o usuário
+        let optionChoice = updadeOptions(); //Chamar a função de option, para ver o que o usuário está escolhendo
+        if(optionChoice == "textarea"){ //Validar o valor da opção escolhida e atribuir determinados atributos.
             
-            tagObject.tagHtml = "textarea"
-            tagObject.createElement();
-            arrayInputsOption.push(tagObject); 
+            tag = "textarea";
+            attributes = "class-classInput";
 
         } else {
 
-            let type = "type-";
-            let result = type + option;
+            tag = "input"
+            attributes = "type-" + optionChoice + "-class-classInput"; //VER ISSO NO CHROME, SE VAI ESTAR FUNCIONANDO. VER SE ISSO SERÁ AQUI MESMO OU APÓS O FOR DE INPUTS.
 
             //Valida se é um radio e criará mais de uma elemento.
-            if(option == "radio"){
+            if(optionChoice == "radio"){ 
 
-                createElementsRadio(result);
+                optionChoiceSetAttributes(tag, attributes);//Função responsável por criar mais elementos se for radio.
 
             } else {
                 
-                clickInputOption("input", result);
+                let tagInput = new ElementHtml(tag, attributes);
+                tagInput.createElement();
 
             }
 
         }
-        
+        let tagInput = new ElementHtml(tag, attributes); //Cria os elementos se não for do tipo radio. Ex: text, textarea 
+        tagInput.createElement();
+
+        //Criação do input button de remove.
+        tag = "input"
+        attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()";
+        let tagInput = new Element(tag, attributes);
+        tagInput.createElement();        
     }   
 }
 
-//Pega o valor da lista optionList e retorna o valor
-function updadeOptions ( ){
+//Comentar melhor a função e dentro dela
+function optionChoiceSetAttributes(tag, attributes){
     
-    let select = document.getElementById("optionList");
-    let option = select.options[select.selectedIndex].value;
+    this.attributes = attributes;
+    this.tag = tag;
 
-    return option;
+    //FOR DE INPUTS PARA CRIAR TRÊS ELEMENTOS DA OPÇÃO DE RADIO.
+    for(let i = 0; i < 4; i++){
+        
+        if(i == 0){
+                        
+            this.attributes = "type-radio-class-classInput";
+            let tagInput = new ElementHtml(this.tag, this.attributes);
+            tagInput.createElement();
+                        
+        } else if (i == 1){
 
+            this.attributes = "type-text-class-classInput";
+            let tagInput = new ElementHtml(this.tag, this.attributes);
+            tagInput.createElement();
+                        
+        } else if (i == 2) {
+
+            this.attributes = "type-button-value-ADD-class-classInput-onclick-createNewAnswer()"; //Criar função createNewAnswer()
+            let tagInput = new ElementHtml(this.tag, this.attributes);
+            tagInput.createElement();
+            clickInputOption("input", "type-button-value-+"); //Antigo: clickInputOption("input", "type-button-value-+-id-buttonAddRadio"+[i]);
+
+        } else {
+
+            this.attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()"; //Criar função deleteElement()
+            let tagInput = new ElementHtml(this.tag, this.attributes);
+            tagInput.createElement();
+                    
+        }            
+    }
 }

@@ -15,7 +15,6 @@ let arrayInputsTitle = []; //Array de Objetos de Tags Titles. EX: h1, textarea
 function deleteElement(elementHtml) {
     //Não funciona no IE 11
     alert("oi");
-    
 }
 
 //Função de botão add mais opções Radio
@@ -65,15 +64,15 @@ function ElementTagObject(tagHtml, attributesHtml){
     //Funcao responsável por criar um elemento
     this.createElement = function () {
 
-        let elementHtml = document.createElement(this.tagHtml);
+        let elementHtml = document.createElement(this.tagHtml);//Criando o elemento com o valor passado
         
         //Valida se o elemento tem um type
         if(typeof(this.attributesHtml) === "undefined"){
             
-            //valida se o elemento é um textarea
+            //valida se o elemento é um textarea e se não for cria o elemento com o valor digitado para ser o H1
             if(this.tagHtml != "textarea"){
-                let createTextNode = document.createTextNode(inputContainer.value)
-                elementHtml.appendChild(createTextNode);
+                let createTextNode = document.createTextNode(inputContainer.value); 
+                elementHtml.appendChild(createTextNode); //Adiciona ao elementHtml o valor do H1.
             }
 
             let createTextNodeNoText = document.createTextNode("");
@@ -89,7 +88,7 @@ function ElementTagObject(tagHtml, attributesHtml){
                 //Tem que receber os atributos e valores, ex: type,text
                 if(i % 2 === 0){    //Por que?  
 
-                    elementHtml.setAttribute( arrayAux[i], arrayAux[i+1] );
+                    elementHtml.setAttribute( arrayAux[i], arrayAux[i+1] ); //Função padrão do JS, seta os atributos de uma tag
 
                     //Atribuindo evento ao elemento, caso seja um botão. Talvez esse IF seja melhor na linha 41
                     if(arrayAux[1] == "button"){
@@ -153,7 +152,7 @@ function clickInputTitle(event){
 
         //teste
         clickInputOption("input", "type-button-value-Remove"); //Funcionou, criou um botão REMOVE
-        
+
         let option = updadeOptions();
 
         if(option == "textarea"){ //Textarea é uma tag sozinha, sem necessidade de um type.
