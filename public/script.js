@@ -7,7 +7,10 @@ const optionList = document.getElementById("optionList"); // Opções de respost
 inputContainer.addEventListener('keyup', clickInputTitle); 
 
 //Variaveis
-let arrayElements = []; //Array responsável por guardar os elementos.
+let arrayElements = []; //Array responsável por guardar todos os objetos elementos.
+let arrayElement = []; //Array
+let arrayQuestions = [];
+let arrayAnswers = [];
 
 //Classes
 class ElementHtml {
@@ -44,7 +47,7 @@ class ElementHtml {
         this.element = document.createElement(this.tagHtml);
         this.validationAttributes();
         
-        for(var i = 0; i < this.attributesHtml.length; i++){  //FOR PARECE INÚTIL, O SPLIT ESTÁ FAZENDO O PAPEL, PARECE, VALIDAR COM CALMA.
+        for(var i = 0; i < this.attributesHtml.length; i++){ 
                 
             //O type sempre será par e o value sempre impar. 
             if(i % 2 === 0){ //Sempre que for par, ele atribuirá os elementos, para a atribuição ocorrer corretamente
@@ -54,9 +57,13 @@ class ElementHtml {
 
             }
         }
-        divContainer.appendChild(this.element); //Demonstro elemento na divContainer
-        arrayElements.push(this.element); //Atribuição dos elementos a array.
 
+        divContainer.appendChild(this.element); //Demonstro elemento na divContainer
+        //arrayElement.push(this.element);
+        //arrayElements.push(arrayElement); //Atribuição dos elementos a array.
+
+
+        //
     }
 
     //Excluir o elemento.
@@ -68,10 +75,11 @@ class ElementHtml {
     //Validar os elementos e sua tag
     validationAttributes(){
         
+        
         //Em algum momento, ter mensagem de erro sobre o elemento nesta função
-        if(this.tagHtml == "textarea"){
+        if(this.tagHtml == "textarea" ){ // || this.attributesHtml.includes('button') Valido se é textarea ou se tem button para não adicionar valor ao elemento
             
-            this.createTextNodeNoText = document.createTextNode("");
+            let createTextNodeNoText = document.createTextNode("");
             this.element.appendChild(createTextNodeNoText); //Adiciona o valor vazio ao objeto elemento textarea. ERRO: Preciso criar antes o elemento     
             
         } else {
@@ -82,11 +90,11 @@ class ElementHtml {
         }
 
         //Atribuindo um evento e sua função ao attributes, caso seja uma botão
-        if(this.attributesHtml.includes('button')){//ERRO DE LÓGICA
+        if(this.attributesHtml.includes('button')){
 
-            if(this.attributesHtml.includes('ADD')){//ERRO DE LÓGICA
+            if(this.attributesHtml.includes('ADD')){
 
-                let stringAttribute = "onclick-createElement()";
+                let stringAttribute = "onclick-createNewAnswer()";
                 let aux = stringAttribute.split('-');
                 this.attributesHtml.push(aux[0]);
                 this.attributesHtml.push(aux[1]);
@@ -103,7 +111,7 @@ class ElementHtml {
     }
 }
 
-//MAIN
+//INÍCIO DA APLICÃO
 function clickInputTitle(event){ //Função responsável por pegar o evento do elemento e dar início as rotinas.
 
     //Variável que recebe o valor e validar se o evento foi igual ao valor.
@@ -116,13 +124,25 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
         let attributes = "class-classTitle"; //Ver depois como automatizar?    
         let titleH1 = new ElementHtml(tag, attributes); //Ver depois se posso automatizar isso.
         titleH1.createElementHtml();
+        arrayElement.push(titleH1);
+        console.log("Pergunta", arrayElement);
+
+        //let arrayQuestions = [];
+        //let arrayAnswers = [];
+
 
         //Crição do input de resposta e validação da opção escolhida pelo o usuário
-        let optionChoice = updadeOptions(); //Chamar a função de option, para ver o que o usuário está escolhendo
+        let optionChoice = updateOptions(); //Chamar a função de option, para ver o que o usuário está escolhendo
         if(optionChoice == "textarea"){ //Validar o valor da opção escolhida e atribuir determinados atributos.
             
             tag = "textarea";
-            attributes = "class-classInput";
+            attributes = "class-classTextArea";
+
+            let tagInput = new ElementHtml(tag, attributes);
+            tagInput.createElementHtml();
+            arrayElement.push(tagInput);
+            console.log("TextArea", arrayElement);
+
 
         } else {
 
@@ -138,6 +158,8 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
                 
                 let tagInput = new ElementHtml(tag, attributes);
                 tagInput.createElementHtml();
+                arrayElement.push(tagInput);
+                console.log("Input", arrayElement);
 
             }
         }
@@ -146,8 +168,11 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
         tag = "input"
         attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()";
         let tagInput = new ElementHtml(tag, attributes);
-        tagInput.createElementHtml();        
-    }   
+        tagInput.createElementHtml(); 
+        arrayElement.push(tagInput);
+        console.log("Input",arrayElement);
+      
+    }
 }
 
 //Função responsável por criar mais de um elemento das opções de radio
@@ -157,45 +182,50 @@ function optionChoiceSetAttributes(tag, attributes){
     this.tag = tag;
 
     //FOR DE INPUTS PARA CRIAR TRÊS ELEMENTOS DA OPÇÃO DE RADIO.
-    for(let i = 0; i < 4; i++){
+    for(let i = 0; i < 3; i++){
         
         if(i == 0){
                         
             this.attributes = "type-radio-class-classInput";
             let tagInput = new ElementHtml(this.tag, this.attributes);
             tagInput.createElementHtml();
+            arrayElement.push(tagInput);
                         
         } else if (i == 1){
 
             this.attributes = "type-text-class-classInput";
             let tagInput = new ElementHtml(this.tag, this.attributes);
             tagInput.createElementHtml();
+            arrayElement.push(tagInput);
                         
-        } else if (i == 2) {
+        } else if (i == 2){
 
-            this.attributes = "type-button-value-ADD-class-classInput-onclick-createNewAnswer()"; //Criar função createNewAnswer()
+            this.attributes = "type-button-value-ADD-class-classInput"; 
             let tagInput = new ElementHtml(this.tag, this.attributes);
             tagInput.createElementHtml();
-
-        } else {
-
-            this.attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()"; //Criar função deleteElement()
-            let tagInput = new ElementHtml(this.tag, this.attributes);
-            tagInput.createElementHtml();
-                    
-        }            
+            arrayElement.push(tagInput);
+        }       
     }
 }
 
+//Ok - Cria novos elementos apartir de um botão e sua função
 function createNewAnswer(){
 
     let tag = "input"
-    let attributes = "type-" + optionChoice + "-class-classInput";
+    let attributes = "type-" + updateOptions() + "-class-classInput";
     optionChoiceSetAttributes(tag, attributes);
+
+    tag = "input"
+    attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()";
+    let tagInput = new ElementHtml(tag, attributes);
+    tagInput.createElementHtml();
+    arrayElement.push(tagInput);
+     
 
 }
 
 //Função responsável por remover os elementos quando clicado no botão
+//IMPLEMENTAR
 function deleteElement() {
     alert("oi");
     if(divContainer.parentNode){
@@ -203,7 +233,8 @@ function deleteElement() {
     }
 }
 
-function updadeOptions ( ){
+//Função responsável por pegar os valores da lista
+function updateOptions ( ){
     
     let option = optionList.options[optionList.selectedIndex].value;
     return option;
