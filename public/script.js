@@ -7,11 +7,13 @@ const optionList = document.getElementById("optionList"); // Opções de respost
 inputContainer.addEventListener('keyup', clickInputTitle); 
 
 //Variaveis
-let arrayElements = []; //Array responsável por guardar todos os objetos elementos.
 let arrayElement = []; //Array
-let arrayQuestions = [];
-let arrayAnswers = [];
+let arrayElements = []; //Array que guarda os elementos 
+let aux = []; //Array auxílair do arrayElements
+let id = 0; //ID para adicionar ao objeto "NOME DO OBJETO" e alinhar definir o ID de cada Array
 
+//TESTE
+let idAux = 1;
 //Classes
 class ElementHtml {
 
@@ -59,11 +61,7 @@ class ElementHtml {
         }
 
         divContainer.appendChild(this.element); //Demonstro elemento na divContainer
-        //arrayElement.push(this.element);
-        //arrayElements.push(arrayElement); //Atribuição dos elementos a array.
-
-
-        //
+    
     }
 
     //Excluir o elemento.
@@ -124,12 +122,10 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
         let attributes = "class-classTitle"; //Ver depois como automatizar?    
         let titleH1 = new ElementHtml(tag, attributes); //Ver depois se posso automatizar isso.
         titleH1.createElementHtml();
-        arrayElement.push(titleH1);
-        console.log("Pergunta", arrayElement);
 
-        //let arrayQuestions = [];
-        //let arrayAnswers = [];
-
+        arrayElements.push(titleH1);
+        aux = aux.concat(arrayElements); //aux array auxiliar para concatenação do arrayElements. 
+        arrayElements.length = []; //limpando a array elements para concacatenar futuramente, sem trazer elementos iguais. 
 
         //Crição do input de resposta e validação da opção escolhida pelo o usuário
         let optionChoice = updateOptions(); //Chamar a função de option, para ver o que o usuário está escolhendo
@@ -140,9 +136,9 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
 
             let tagInput = new ElementHtml(tag, attributes);
             tagInput.createElementHtml();
-            arrayElement.push(tagInput);
-            console.log("TextArea", arrayElement);
 
+            aux = aux.concat(tagInput);
+            arrayElements.length = [];
 
         } else {
 
@@ -158,9 +154,10 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
                 
                 let tagInput = new ElementHtml(tag, attributes);
                 tagInput.createElementHtml();
-                arrayElement.push(tagInput);
-                console.log("Input", arrayElement);
-
+                arrayElements.push(tagInput);
+                
+                aux = aux.concat(arrayElements); //aux array auxiliar para concatenação do arrayElements. 
+                arrayElements.length = []; //limpando a array elements para concacatenar futuramente, sem trazer elementos iguais. 
             }
         }
 
@@ -169,9 +166,18 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
         attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()";
         let tagInput = new ElementHtml(tag, attributes);
         tagInput.createElementHtml(); 
-        arrayElement.push(tagInput);
-        console.log("Input",arrayElement);
-      
+        arrayElements.push(tagInput);
+
+        aux = aux.concat(arrayElements); //aux array auxiliar para concatenação do arrayElements. 
+        arrayElements.length = []; //limpando a array elements para concacatenar futuramente, sem trazer elementos iguais. 
+    
+        objectsArray.arrayPaiPerguntas.push(id); //Atribuo um valor ID para buscar-lo eventualmente depois. 
+        objectsArray.arrayPaiPerguntas.push([]); //Crio uma nova array sempre e atribuo os elementos a ela abaixo.
+        objectsArray.arrayPaiPerguntas[idAux] = objectsArray.arrayPaiPerguntas[idAux].concat(aux);
+        aux.length = []; //Limpo a array aux para utilizar-la novamente.
+        
+        id++; //ID
+        idAux = idAux + 2; //IDAux deve ser sempre ímpar por causa da array criada sempre. 
     }
 }
 
@@ -189,21 +195,33 @@ function optionChoiceSetAttributes(tag, attributes){
             this.attributes = "type-radio-class-classInput";
             let tagInput = new ElementHtml(this.tag, this.attributes);
             tagInput.createElementHtml();
-            arrayElement.push(tagInput);
+            arrayElements.push(tagInput);
+
+            aux = aux.concat(arrayElements); //aux array auxiliar para concatenação do arrayElements. 
+            arrayElements.length = []; //limpando a array elements para concacatenar futuramente, sem trazer elementos iguais.
+
                         
         } else if (i == 1){
 
             this.attributes = "type-text-class-classInput";
             let tagInput = new ElementHtml(this.tag, this.attributes);
             tagInput.createElementHtml();
-            arrayElement.push(tagInput);
+            arrayElements.push(tagInput);
+            
+            aux = aux.concat(arrayElements); //aux array auxiliar para concatenação do arrayElements. 
+            arrayElements.length = []; //limpando a array elements para concacatenar futuramente, sem trazer elementos iguais. 
+    
                         
         } else if (i == 2){
 
             this.attributes = "type-button-value-ADD-class-classInput"; 
             let tagInput = new ElementHtml(this.tag, this.attributes);
             tagInput.createElementHtml();
-            arrayElement.push(tagInput);
+            arrayElements.push(tagInput);
+            
+            aux = aux.concat(arrayElements); //aux array auxiliar para concatenação do arrayElements. 
+            arrayElements.length = []; //limpando a array elements para concacatenar futuramente, sem trazer elementos iguais. 
+    
         }       
     }
 }
@@ -219,7 +237,19 @@ function createNewAnswer(){
     attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()";
     let tagInput = new ElementHtml(tag, attributes);
     tagInput.createElementHtml();
-    arrayElement.push(tagInput);
+    arrayElements.push(tagInput);
+    
+    aux = aux.concat(arrayElements); //aux array auxiliar para concatenação do arrayElements. 
+    arrayElements.length = []; //limpando a array elements para concacatenar futuramente, sem trazer elementos iguais. 
+    
+    objectsArray.arrayPaiPerguntas.push(id); //Atribuo um valor ID para buscar-lo eventualmente depois. 
+    objectsArray.arrayPaiPerguntas.push([]); //Crio uma nova array sempre e atribuo os elementos a ela abaixo.
+    objectsArray.arrayPaiPerguntas[idAux] = objectsArray.arrayPaiPerguntas[idAux].concat(aux);
+    aux.length = []; //Limpo a array aux para utilizar-la novamente.
+
+
+    id++; //ID
+    idAux = idAux + 2; //IDAux deve ser sempre ímpar por causa da array criada sempre. 
      
 
 }
@@ -234,9 +264,30 @@ function deleteElement() {
 }
 
 //Função responsável por pegar os valores da lista
-function updateOptions ( ){
+function updateOptions(){
     
     let option = optionList.options[optionList.selectedIndex].value;
     return option;
 
 }
+
+
+//TESTE
+objectsArray = {
+    arrayPaiPerguntas: []
+}
+
+/*function addArrayParents(tagInput) {
+
+    id++;
+    //ID recebe 1 sempre que vier? 
+    if(id % 2 == 0){
+        abstractObject.arrayPaiPerguntas.push(id);//Passo o ID 
+        abstractObject.arrayPaiPerguntas[id].push(tagInput)//Passo a para a array
+    } else {
+        
+    }
+    
+}
+
+*/
