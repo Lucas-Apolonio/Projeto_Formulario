@@ -31,7 +31,7 @@ class ElementHtml {
 
     }
 
-    getElementHtml (){
+    getElementHtml(){
         return this.tagHtml, this.attributesHtml, this.addValueElement;
     }
 
@@ -127,6 +127,7 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
         aux = aux.concat(arrayElements); //aux array auxiliar para concatenação do arrayElements. 
         arrayElements.length = []; //limpando a array elements para concacatenar futuramente, sem trazer elementos iguais. 
 
+        TextDecoderStream
         //Crição do input de resposta e validação da opção escolhida pelo o usuário
         let optionChoice = updateOptions(); //Chamar a função de option, para ver o que o usuário está escolhendo
         if(optionChoice == "textarea"){ //Validar o valor da opção escolhida e atribuir determinados atributos.
