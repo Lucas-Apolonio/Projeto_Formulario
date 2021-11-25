@@ -257,10 +257,20 @@ function createNewAnswer(){
 
 //Função responsável por remover os elementos quando clicado no botão
 //IMPLEMENTAR
-function deleteElement() {
-    alert("oi");
-    if(divContainer.parentNode){
-        divContainer.parentNode.removeChild()//Como irei validar qual nó será removido? Validar ainda
+function deleteElement(idButtonRemove) {
+
+    //Valido qual é a posição que este botão faz parte e excluo.
+    function excluedPositionArray(){
+        objectsArray.arrayPaiPerguntas[i]
+        for(i = 0; i < objectsArray.arrayPaiPerguntas; i++){
+            if(Array.isArray(objectsArray.arrayPaiPerguntas[i])){ //Valido se é uma array
+                if(objectsArray.arrayPaiPerguntas[i].find(idButtonRemove)){
+                    if(divContainer.parentNode){
+                        divContainer.parentNode.removeChild()//Como irei validar qual nó será removido? Validar ainda
+                    }
+                }
+            }
+        }
     }
 }
 
