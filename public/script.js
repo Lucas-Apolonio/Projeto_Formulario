@@ -11,6 +11,7 @@ let arrayElement = []; //Array
 let arrayElements = []; //Array que guarda os elementos 
 let aux = []; //Array auxílair do arrayElements
 let id = 0; //ID para adicionar ao objeto "NOME DO OBJETO" e alinhar definir o ID de cada Array
+
 let idButtonRemove = 0; //TESTE para excluir elementos.
 
 //TESTE
@@ -62,6 +63,7 @@ class ElementHtml {
         }
 
         divContainer.appendChild(this.element); //Demonstro elemento na divContainer
+
     
     }
 
@@ -91,7 +93,7 @@ class ElementHtml {
         //Atribuindo um evento e sua função ao attributes, caso seja uma botão
         if(this.attributesHtml.includes('button')){
 
-            if(this.attributesHtml.includes('ADD')){
+            if(this.attributesHtml.includes('add')){
 
                 let stringAttribute = "onclick-createNewAnswer()";
                 let aux = stringAttribute.split('-');
@@ -100,7 +102,7 @@ class ElementHtml {
 
             } else {
 
-                let stringAttribute = "onclick-deleteElement()";
+                let stringAttribute = "onclick-deleteElement(this.id)";
                 let aux = stringAttribute.split('-');
                 this.attributesHtml.push(aux[0]);
                 this.attributesHtml.push(aux[1]);
@@ -164,7 +166,7 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
 
         //Criação do input button de remove.
         tag = "input"
-        attributes = "type-button-value-REMOVER-class-classInput-id-" + idButtonRemove + "-onclick-deleteElement()";
+        attributes = "type-button-value-remove-class-classInput-id-" + idButtonRemove;
         let tagInput = new ElementHtml(tag, attributes);
         tagInput.createElementHtml(); 
         arrayElements.push(tagInput);
@@ -179,6 +181,9 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
         
         id++; //ID
         idAux = idAux + 2; //IDAux deve ser sempre ímpar por causa da array criada sempre. 
+
+        //TESTE
+        idButtonRemove++; 
     }
 }
 
@@ -215,7 +220,7 @@ function optionChoiceSetAttributes(tag, attributes){
                         
         } else if (i == 2){
 
-            this.attributes = "type-button-value-ADD-class-classInput"; 
+            this.attributes = "type-button-value-add-class-classInput"; 
             let tagInput = new ElementHtml(this.tag, this.attributes);
             tagInput.createElementHtml();
             arrayElements.push(tagInput);
@@ -225,6 +230,8 @@ function optionChoiceSetAttributes(tag, attributes){
     
         }       
     }
+
+
 }
 
 //Ok - Cria novos elementos apartir de um botão e sua função
@@ -235,9 +242,11 @@ function createNewAnswer(){
     optionChoiceSetAttributes(tag, attributes);
 
     tag = "input"
-    attributes = "type-button-value-REMOVER-class-classInput-id-" + idButtonRemove + "-onclick-deleteElement()";
+
+    attributes = "type-button-value-remove-class-classInput-id-" + idButtonRemove;
     let tagInput = new ElementHtml(tag, attributes);
     tagInput.createElementHtml();
+    idButtonRemove++; //Incrementa o Id para utilizar na exlcusão depois.
     arrayElements.push(tagInput);
     
     aux = aux.concat(arrayElements); //aux array auxiliar para concatenação do arrayElements. 
@@ -259,24 +268,63 @@ function createNewAnswer(){
 //IMPLEMENTAR
 function deleteElement(idButtonRemove) {
 
-    //idElement = getElementById();
-    //Valido qual é a posição que este botão faz parte e excluo.
-    function excluedPositionArray(){
+    function excluedPositionArray(idButtonRemove){
+
+        let indice; //Indice para consiga determinar qual elemento irei exlcuir.
         
-        for(i = 0; i < objectsArray.arrayPaiPerguntas; i++){
+        for(i = 0; i < objectsArray.arrayPaiPerguntas.length; i++){
+
             if(Array.isArray(objectsArray.arrayPaiPerguntas[i])){ //Valido se é uma array
-                if(objectsArray.arrayPaiPerguntas[i].find(idButtonRemove)){ //Válido se na array existe IdButtonRemove
-                    if(divContainer.parentNode){
-                        if(idButtonRemove)
-                        divContainer.parentNode.removeChild()//Como irei validar qual nó será removido? Validar ainda
-                        console.log(objectsArray.arrayPaiPerguntas[i]);
+
+                if(objectsArray.arrayPaiPerguntas[i].length > 3){ //Determinar o Indice
+                    indice = 4;
+                    if(objectsArray.arrayPaiPerguntas[i].length < 5){
+                        indice = 3;
+                    }
+                }else{
+                    indice = 2; 
+                }
+                
+                for(l = 0; l < objectsArray.arrayPaiPerguntas[i][indice].attributesHtml.length; l++){ //Válido os atributos de um objeto ElementHtml para encontrar o id
+                    
+                    if(idButtonRemove == objectsArray.arrayPaiPerguntas[i][indice].attributesHtml[l]){
+ 
+                        let deleteElement = objectsArray.arrayPaiPerguntas[i][indice].element;
+                        if(deleteElement.parentNode){
+                            
+                            if(indice == 2){
+                                deleteElement.parentNode.removeChild(objectsArray.arrayPaiPerguntas[i][2].element);//Como irei validar qual nó será removido? Validar ainda
+                                deleteElement = objectsArray.arrayPaiPerguntas[i][1].element;
+                                deleteElement.parentNode.removeChild(deleteElement);
+                                deleteElement = objectsArray.arrayPaiPerguntas[i][0].element;
+                                deleteElement.parentNode.removeChild(deleteElement);
+                            } else if (indice == 4) {
+                                deleteElement.parentNode.removeChild(objectsArray.arrayPaiPerguntas[i][4].element)
+                                deleteElement = objectsArray.arrayPaiPerguntas[i][3].element;
+                                deleteElement.parentNode.removeChild(deleteElement);//Como irei validar qual nó será removido? Validar ainda
+                                deleteElement = objectsArray.arrayPaiPerguntas[i][2].element;
+                                deleteElement.parentNode.removeChild(deleteElement);
+                                deleteElement = objectsArray.arrayPaiPerguntas[i][1].element;
+                                deleteElement.parentNode.removeChild(deleteElement);
+                                deleteElement = objectsArray.arrayPaiPerguntas[i][0].element;
+                                deleteElement.parentNode.removeChild(deleteElement);
+                            } else {
+                                deleteElement.parentNode.removeChild(objectsArray.arrayPaiPerguntas[i][3].element)
+                                deleteElement = objectsArray.arrayPaiPerguntas[i][2].element;
+                                deleteElement.parentNode.removeChild(deleteElement);
+                                deleteElement = objectsArray.arrayPaiPerguntas[i][1].element;
+                                deleteElement.parentNode.removeChild(deleteElement);
+                                deleteElement = objectsArray.arrayPaiPerguntas[i][0].element;
+                                deleteElement.parentNode.removeChild(deleteElement);
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-    excluedPositionArray();
+    excluedPositionArray(idButtonRemove);
 }
 
 //Função responsável por pegar os valores da lista
