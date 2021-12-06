@@ -11,6 +11,7 @@ let arrayElement = []; //Array
 let arrayElements = []; //Array que guarda os elementos 
 let aux = []; //Array auxílair do arrayElements
 let id = 0; //ID para adicionar ao objeto "NOME DO OBJETO" e alinhar definir o ID de cada Array
+let idButtonRemove = 0; //TESTE para excluir elementos.
 
 //TESTE
 let idAux = 1;
@@ -127,7 +128,6 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
         aux = aux.concat(arrayElements); //aux array auxiliar para concatenação do arrayElements. 
         arrayElements.length = []; //limpando a array elements para concacatenar futuramente, sem trazer elementos iguais. 
 
-        TextDecoderStream
         //Crição do input de resposta e validação da opção escolhida pelo o usuário
         let optionChoice = updateOptions(); //Chamar a função de option, para ver o que o usuário está escolhendo
         if(optionChoice == "textarea"){ //Validar o valor da opção escolhida e atribuir determinados atributos.
@@ -164,7 +164,7 @@ function clickInputTitle(event){ //Função responsável por pegar o evento do e
 
         //Criação do input button de remove.
         tag = "input"
-        attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()";
+        attributes = "type-button-value-REMOVER-class-classInput-id-" + idButtonRemove + "-onclick-deleteElement()";
         let tagInput = new ElementHtml(tag, attributes);
         tagInput.createElementHtml(); 
         arrayElements.push(tagInput);
@@ -235,7 +235,7 @@ function createNewAnswer(){
     optionChoiceSetAttributes(tag, attributes);
 
     tag = "input"
-    attributes = "type-button-value-REMOVER-class-classInput-onclick-deleteElement()";
+    attributes = "type-button-value-REMOVER-class-classInput-id-" + idButtonRemove + "-onclick-deleteElement()";
     let tagInput = new ElementHtml(tag, attributes);
     tagInput.createElementHtml();
     arrayElements.push(tagInput);
@@ -259,19 +259,24 @@ function createNewAnswer(){
 //IMPLEMENTAR
 function deleteElement(idButtonRemove) {
 
+    //idElement = getElementById();
     //Valido qual é a posição que este botão faz parte e excluo.
     function excluedPositionArray(){
-        objectsArray.arrayPaiPerguntas[i]
+        
         for(i = 0; i < objectsArray.arrayPaiPerguntas; i++){
             if(Array.isArray(objectsArray.arrayPaiPerguntas[i])){ //Valido se é uma array
-                if(objectsArray.arrayPaiPerguntas[i].find(idButtonRemove)){
+                if(objectsArray.arrayPaiPerguntas[i].find(idButtonRemove)){ //Válido se na array existe IdButtonRemove
                     if(divContainer.parentNode){
+                        if(idButtonRemove)
                         divContainer.parentNode.removeChild()//Como irei validar qual nó será removido? Validar ainda
+                        console.log(objectsArray.arrayPaiPerguntas[i]);
                     }
                 }
             }
         }
     }
+
+    excluedPositionArray();
 }
 
 //Função responsável por pegar os valores da lista
